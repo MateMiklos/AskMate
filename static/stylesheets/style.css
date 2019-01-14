@@ -46,3 +46,7 @@ select {
    padding: 5px; /* If you add too much padding here, the options won't show in IE */
    width: 99px;
 }
+
+h1,h3 {
+  text-align: center;
+}

@@ -2,11 +2,11 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Super Sprinter 3000</title>
+    <title>ÁSKMÉT</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style.css') }}">
 </head>
 <body>
-<h1>Super Sprinter 3000</h1><br>
+<h1>ÁSKMÉT</h1><br>
 <h3><a href="/story">Add new User Story</a></h3>
 <table>
     <tr>
@@ -27,16 +27,5 @@
     {% endfor %}
 </table>
 </table>
-<p>
-    {% if note is not none %}
-        {{ note }}
-    {% else %}
-        There is no saved notes.
-    {% endif %}
-</p>
 </body>
 </html>
-
-
-
-id,submission_time,view_number,vote_number,title,message,image
