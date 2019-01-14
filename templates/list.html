@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Ask Mate</title>
+    <meta charset="utf-8">
+    <title>Super Sprinter 3000</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style.css') }}">
 </head>
 <body>
-
+<h1>Super Sprinter 3000</h1><br>
+<h3><a href="/story">Add new User Story</a></h3>
+<table>
+    <tr>
+        {% for line in header %}
+            <th>{{ line }}</th>
+        {% endfor %}
+    </tr>
+    {% for line in user_stories %}
+        <tr>
+            <td>{{ line['id'] }}</td>
+            <td><a href="/story/2">{{ line['submission_time'] }}</a></td>
+            <td>{{ line['view_number'] }}</td>
+            <td>{{ line['vote_number'] }}</td>
+            <td>{{ line['title'] }}</td>
+            <td>{{ line['message'] }}</td>
+            <td>{{ line['image'] }}</td>
+        </tr>
+    {% endfor %}
+</table>
+</table>
+<p>
+    {% if note is not none %}
+        {{ note }}
+    {% else %}
+        There is no saved notes.
+    {% endif %}
+</p>
 </body>
 </html>
+
+
+
+id,submission_time,view_number,vote_number,title,message,image
