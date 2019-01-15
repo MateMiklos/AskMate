@@ -7,25 +7,24 @@
 </head>
 <body>
 <h1>ÁSKMÉT</h1><br>
-<h3><a href="/story">Add new User Story</a></h3>
+<h3><a href="/add-question">Ask a question</a></h3></h3>
 <table>
     <tr>
         {% for line in header %}
             <th>{{ line }}</th>
         {% endfor %}
     </tr>
-    {% for line in user_stories %}
+    {% for line in questions %}
         <tr>
             <td>{{ line['id'] }}</td>
-            <td><a href="/story/2">{{ line['submission_time'] }}</a></td>
+            <td>{{ line['submission_time'] }}</td>
             <td>{{ line['view_number'] }}</td>
             <td>{{ line['vote_number'] }}</td>
-            <td>{{ line['title'] }}</td>
+            <td><a href="/question/<question_id>">{{ line['title'] }}</a></td>
             <td>{{ line['message'] }}</td>
             <td>{{ line['image'] }}</td>
         </tr>
     {% endfor %}
-</table>
 </table>
 </body>
 </html>

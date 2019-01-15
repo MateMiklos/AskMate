@@ -10,10 +10,10 @@ header = ['ID', 'Submission Time', 'View Number', 'Vote Number', 'Title', 'Messa
 def get_all_user_story():
     with open(DATA_FILE_PATH) as csvfile:
         reader = csv.DictReader(csvfile, delimiter=',')
-        user_stories = []
+        questions = []
         for row in reader:
-            user_stories.append(row)
-    return user_stories
+            questions.append(row)
+    return questions
 
 
 
