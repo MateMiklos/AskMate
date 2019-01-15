@@ -15,5 +15,11 @@ def get_questions():
     return questions
 
 
+def append_csv(new_line):
+    with open(DATA_FILE_PATH, "a") as data_file:
+        writer = csv.DictWriter(data_file, fieldnames=DATA_HEADER, delimiter=';')
+        writer.writerow(new_line)
+
+
 def get_header():
     return header
