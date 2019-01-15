@@ -7,9 +7,9 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style.css') }}">
 </head>
 <body>
-<h1>Add a question</h1>
-<form action="/add-question" method="POST">
-    <label for="question_id">Title of the question:</label>
+<h1>Ask a question</h1>
+<form action="/ask-question" method="POST">
+    <label for="question_title">Title of the question:</label>
     <br>
     <input type="text" name="title" size="15"{{ note }}>
     <input type="text" name="id" value = "{{ id }}" hidden>

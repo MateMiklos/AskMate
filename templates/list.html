@@ -16,10 +16,10 @@
     </tr>
     {% for line in questions %}
         <tr>
+            <td>{{ line['vote_number'] }}</td>
             <td>{{ line['id'] }}</td>
             <td>{{ line['submission_time'] }}</td>
             <td>{{ line['view_number'] }}</td>
-            <td>{{ line['vote_number'] }}</td>
             <td><a href="/question/<question_id>">{{ line['title'] }}</a></td>
             <td>{{ line['message'] }}</td>
             <td>{{ line['image'] }}</td>
