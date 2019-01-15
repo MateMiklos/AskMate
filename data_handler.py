@@ -23,3 +23,18 @@ def append_csv(new_line):
 
 def get_header():
     return header
+
+
+def append_csv(question):
+    with open('AskMate/sample_data/question.csvs') as csv_questions:
+        writer = csv.writer(csv_questions)
+        writer.writerows(question)
+
+
+def id_generator():
+    pass
+
+
+def create_timestamp():
+    return datetime.datetime.fromtimestamp(ts).strftime('%H-%M-%S %d:%m:%Y')
+
