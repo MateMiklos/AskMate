@@ -1,10 +1,10 @@
 import csv
 import os
-import datetime
 
 DATA_FILE_PATH = os.getenv('DATA_FILE_PATH') if 'DATA_FILE_PATH' in os.environ else 'question.csv'
 DATA_FILE_PATH_answer = os.getenv('DATA_FILE_PATH') if 'DATA_FILE_PATH' in os.environ else 'answer.csv'
 header = ['ID', 'Submission Time', 'View Number', 'Vote Number', 'Title', 'Message', 'Image']
+DATA_HEADER = ["id", "submission_time", "view_number", "vote_number", "title", "message,image"]
 
 
 def get_questions():
@@ -16,14 +16,14 @@ def get_questions():
     return questions
 
 
+def append_csv(question):
+    with open(DATA_FILE_PATH, "a") as data_file:
+        writer = csv.DictWriter(data_file, fieldnames=DATA_HEADER, delimiter=';')
+        writer.writerow(question)
+
+
 def get_header():
     return header
-
-
-def append_csv(question):
-    with open('AskMate/sample_data/question.csvs') as csv_questions:
-        writer = csv.writer(csv_questions)
-        writer.writerows(question)
 
 
 def id_generator():
