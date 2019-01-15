@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>Add User Story</h1>
-<form action="/question/<question_id>" method="GET">
+<form action="/question/{{ line['id'] }}" method="GET">
     <td>{{ line['id'] }}</td>
     <td>{{ line['submission_time'] }}</td>
     <td>{{ line['view_number'] }}</td>

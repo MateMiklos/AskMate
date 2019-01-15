@@ -29,7 +29,7 @@ def ask_question():
 def display_question():
     questions = data_handler.get_questions()
     header = data_handler.get_header()
-    return render_template('display.html', questions=questions, header=header, id=id)
+    return render_template('display.html', questions=questions, header=header, question_id=question_id)
 
 
 if __name__ == '__main__':
