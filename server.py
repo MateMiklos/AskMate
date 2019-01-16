@@ -22,14 +22,31 @@ def ask_question():
     questions = data_handler.get_questions()
     header = data_handler.get_header()
     # statuses = data_handler.get_statuses()
-    # id = data_handler.get_next_id()
+    id = data_handler.get_next_id()
     return render_template('add.html', questions=questions, header=header, id=id)
 
-@app.route('/question/<question_id>')
-def display_question():
+@app.route('/question/<id>', methods=['GET', 'POST'])
+def display_question(id):
+    answers = data_handler.get_answers()
     questions = data_handler.get_questions()
     header = data_handler.get_header()
-    return render_template('display.html', questions=questions, header=header, question_id=question_id)
+    for num in questions:
+        if num["id"] == id:
+            questionz = num
+    for num in answers:
+        if num["id"] == id:
+            answers = num
+    return render_template('display.html', questionz=questionz, answers = answers,header=header)
+
+
+
+# @app.route('/question/<id>', methods=['GET', 'POST'])
+# def display_answers():
+#     answers = data_handler.get_answers()
+#     for num in answers:
+#         if num ["id"] == id:
+#             answers = num
+#     return render_template('display.html', answers=answers, header=header)
 
 
 if __name__ == '__main__':
