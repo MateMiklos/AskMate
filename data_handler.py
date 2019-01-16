@@ -45,4 +45,4 @@ def id_generator():
 
 
 def create_timestamp():
-    return datetime.datetime.fromtimestamp(ts).strftime('%H-%M-%S %d:%m:%Y')
+    return datetime.datetime.now().strftime('%H-%M-%S %d:%m:%Y')

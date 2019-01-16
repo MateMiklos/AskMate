@@ -23,7 +23,8 @@ def ask_question():
     header = data_handler.get_header()
     # statuses = data_handler.get_statuses()
     id = data_handler.get_next_id()
-    return render_template('add.html', questions=questions, header=header, id=id)
+    timestamp = data_handler.create_timestamp()
+    return render_template('add.html', questions=questions, header=header, id=id, timestamp=timestamp)
 
 @app.route('/question/<id>', methods=['GET', 'POST'])
 def display_question(id):
