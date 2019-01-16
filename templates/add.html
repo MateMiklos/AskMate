@@ -7,20 +7,28 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style.css') }}">
 </head>
 <body>
-<h1>Ask a question</h1>
-<form action="/ask-question" method="POST">
-    <label for="question_title">Title of the question:</label>
-    <br>
-    <input type="text" name="title" size="15"{{ note }}>
-    <input type="text" name="id" value = "{{ id }}" hidden>
-    <br><br>
-    <label for="problem_explanation">Explain the problem:</label>
-    <br>
-    <textarea id="problem_explanation" name="question_id" rows="8" cols="80"></textarea>
-    <br><br>
-    <br>
-    <br>
-    <button type = "submit">Post Question!</button>
+<div style="text-align:center;">
+    <h1>Ask a question</h1>
+    <form action="/ask-question" method="POST">
+        <label for="question_title">Title of the question:</label>
+        <br>
+        <input type="text" name="title" size="15">
+        <input type="text" name="id" value="{{ id }}" hidden>
+        <input type="text" name="submission_time" value="2" hidden>
+        <input type="text" name="view_number" value="5" hidden>
+        <input type="text" name="vote_number" value="25" hidden>
+        <input type="text" name="image" value="img" hidden>
+        <br><br>
+        <label for="problem_explanation">Explain the problem:</label>
+        <br>
+        <textarea id="problem_explanation" name="message" rows="8" cols="80"></textarea>
+        <br>
+        <br>
+        <input type=submit value="submit">
+        <br><br>
+        <a href='/list' class="button" style="text-decoration: none">Back to Questions</a>
+</div>
 </form>
 </body>
 </html>
+

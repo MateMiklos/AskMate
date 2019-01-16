@@ -7,7 +7,11 @@
 </head>
 <body>
 <h1>ÁSKMÉT</h1><br>
-<h3><a href='/ask-question'>Ask a question</a></h3></h3>
+<form>
+<div style="text-align:center;">
+<a href='/ask-question' class="button" style="text-decoration: none">Ask a question</a>
+</div>
+<br><br>
 <table>
     <tr>
         {% for line in header %}
@@ -20,11 +24,12 @@
             <td>{{ line['submission_time'] }}</td>
             <td>{{ line['view_number'] }}</td>
             <td>{{ line['vote_number'] }}</td>
-            <td><a href="/question/{{ line['id'] }}">{{ line['title'] }}</a></td>
+            <td><a href="/question/{{ line["id"] }}" style="text-decoration: none">{{ line['title'] }}</a></td>
             <td>{{ line['message'] }}</td>
             <td>{{ line['image'] }}</td>
         </tr>
     {% endfor %}
 </table>
+</form>
 </body>
 </html>

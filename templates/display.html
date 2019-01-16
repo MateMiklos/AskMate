@@ -7,12 +7,39 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style.css') }}">
 </head>
 <body>
-<h1>Add User Story</h1>
-<form action="/question/{{ line['id'] }}" method="GET">
-    <td>{{ line['id'] }}</td>
-    <td>{{ line['submission_time'] }}</td>
-    <td>{{ line['view_number'] }}</td>
-    <td>{{ line['vote_number'] }}</td>
+<h1>Display Question</h1>
+<br action="/question/<question_id>" method="GET">
+<table>
+    <tr>
+        {% for line in header %}
+            <th>{{ line }}</th>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td>{{ questionz['id'] }}</td>
+        <td>{{ questionz['submission_time'] }}</td>
+        <td>{{ questionz['view_number'] }}</td>
+        <td>{{ questionz['vote_number'] }}</td>
+        <td>{{ questionz['title'] }}</td>
+    </tr>
+    <br><br>
+</table>
+<br><br>
+<div style="text-align:center;">
+<h3>Answer</h3>
+</div>
+<table>
+    <tr>
+
+    <td>{{ answers['id'] }}</td>
+    <td>{{ answers['message'] }}</td>
+
+    </tr>
+</table>
+<br><br>
+<div style="text-align:center;">
+<a href='/list' class="button" style="text-decoration: none">Back to Questions</a>
+</div>
 </form>
 </body>
 </html>
