@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import data_handler
 
 app = Flask(__name__)
@@ -26,10 +26,47 @@ def ask_question():
     return render_template('add.html', questions=questions, header=header, id=id)
 
 @app.route('/question/<question_id>')
-def display_question():
+def display_question(question_id):
     questions = data_handler.get_questions()
     header = data_handler.get_header()
-    return render_template('display.html', questions=questions, header=header, question_id=question_id)
+    return render_template('display.html', questions=questions, header=header, id=question_id)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route('/question/<question_id>/new-answer')
+def new_answer():
+    if 'answer' in session:
+        answer_text = session['answer']
+    return render_template(answer.html, answer=answer_text)
+
+
+@app.route('/question/<question_id>/new-answer', methods=['POST'])
+def answer_save():
+    session['answer'] = request.form['answer']
+    return redirect('/')
 
 
 if __name__ == '__main__':
