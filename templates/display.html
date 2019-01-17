@@ -4,11 +4,13 @@
 <head>
     <meta charset="utf-8">
     <title>Display a Question</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style.css') }}">
-</head>
+{#    <form action="/ask-question" method="POST">#}
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+        </head>
+    </form>
 <body>
 <h1>Display Question</h1>
-<br action="/question/<question_id>" method="GET">
+{#<form action="/question/<question_id>" method="GET">#}
 <table>
     <tr>
         {% for line in header %}
@@ -27,20 +29,36 @@
 </table>
 <br><br>
 <div style="text-align:center;">
-<h3>Answer</h3>
+    <h3>Answer</h3>
 </div>
 <table>
     <tr>
-
-    <td>{{ answers['id'] }}</td>
-    <td>{{ answers['message'] }}</td>
-
+        {% for line in answers_header %}
+            <th>{{ line }}</th>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td>{{ answers["id"] }}</td>
+        <td>{{ answers['submission_time'] }}</td>
+        <td>{{ answers['question_id'] }}</td>
+        <td>{{ answers['message'] }}</td>
     </tr>
 </table>
 <br><br>
-<div style="text-align:center;">
-<a href='/list' class="button" style="text-decoration: none">Back to Questions</a>
+
 </div>
-</form>
+<br>
+<div style="text-align:center;">
+    <a href='/question/{{ answers['question_id'] }}/new-answer' class="button" style="text-decoration: none">Add New Answer</a>
+</div>
+<br><br>
+<div style="text-align:center;">
+    <a href="{{ url_for("list_") }}" class="button" style="text-decoration: none">Back to Question</a>
+</div>
+
+
+
+
+
 </body>
 </html>

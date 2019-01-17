@@ -26,18 +26,46 @@ def ask_question():
     timestamp = data_handler.create_timestamp()
     return render_template('add.html', questions=questions, header=header, id=id, timestamp=timestamp)
 
+
+
+
 @app.route('/question/<id>', methods=['GET', 'POST'])
 def display_question(id):
     answers = data_handler.get_answers()
     questions = data_handler.get_questions()
     header = data_handler.get_header()
+    answers_header = data_handler.get_answer_header()
     for num in questions:
         if num["id"] == id:
             questionz = num
-    for num in answers:
-        if num["id"] == id:
-            answers = num
-    return render_template('display.html', questionz=questionz, answers = answers,header=header)
+    for line in answers:
+        if line["question_id"] == id:
+            answers = line
+    return render_template('display.html', questionz=questionz, answers=answers,header=header, answers_header=answers_header)
+
+
+
+@app.route('/question/<question_id>/new-answer', methods=['POST', 'GET'])
+def add_answer(question_id):
+    if request.method == 'POST':
+        answer = dict(request.form)
+        data_handler.append_answer_csv(answer)
+        return redirect(url_for("display_question", id=question_id))
+
+
+    answers = data_handler.get_answers()
+    header = data_handler.get_answer_header()
+    # statuses = data_handler.get_statuses()
+    answer_id = data_handler.get_next_answer_id()
+    timestamp = data_handler.create_timestamp()
+    for line in answers:
+        if line["id"] == question_id:
+            answers = line
+    return render_template('add_answer.html', answers=answers, answer_id=answer_id, timestamp=timestamp, question_id=question_id)
+
+
+
+
 
 
 
