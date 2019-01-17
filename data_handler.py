@@ -40,9 +40,5 @@ def get_header():
     return header
 
 
-def id_generator():
-    pass
-
-
 def create_timestamp():
-    return datetime.datetime.now().strftime('%H-%M-%S %d:%m:%Y')
+    return datetime.datetime.now().strftime('%H:%M:%S %d/%m/%Y')

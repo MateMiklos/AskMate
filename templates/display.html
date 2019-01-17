@@ -8,38 +8,43 @@
 </head>
 <body>
 <h1>Display Question</h1>
-<br action="/question/<question_id>" method="GET">
+<br>
 <table>
-    <tr>
-        {% for line in header %}
-            <th>{{ line }}</th>
-        {% endfor %}
-    </tr>
-    <tr>
-        <td>{{ questionz['id'] }}</td>
-        <td>{{ questionz['submission_time'] }}</td>
-        <td>{{ questionz['view_number'] }}</td>
-        <td>{{ questionz['vote_number'] }}</td>
-        <td>{{ questionz['title'] }}</td>
-        <td>{{ questionz['message'] }}</td>
-    </tr>
-    <br><br>
+    <form>
+        <tr>
+            {% for line in header %}
+                <th>{{ line }}</th>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>{{ questionz['id'] }}</td>
+            <td>{{ questionz['submission_time'] }}</td>
+            <td>{{ questionz['view_number'] }}</td>
+            <td>{{ questionz['vote_number'] }}
+                <a href="/question/{{ questionz['id'] }}/vote-up" class="button" style="text-decoration: none">Vote
+                    Up</a>
+                <a href="/vote-down/<id>" class="button" style="text-decoration: none">Vote Down</a></td>
+            <td>{{ questionz['title'] }}</td>
+            <td>{{ questionz['message'] }}</td>
+        </tr>
+    </form>
+        <br><br>
 </table>
 <br><br>
 <div style="text-align:center;">
-<h3>Answer</h3>
+    <h3>Answer</h3>
 </div>
 <table>
     <tr>
 
-    <td>{{ answers['id'] }}</td>
-    <td>{{ answers['message'] }}</td>
+        <td>answer id</td>
+        <td>answer</td>
 
     </tr>
 </table>
 <br><br>
 <div style="text-align:center;">
-<a href='/list' class="button" style="text-decoration: none">Back to Questions</a>
+    <a href='/list' class="button" style="text-decoration: none">Back to Questions</a>
 </div>
 </form>
 </body>
