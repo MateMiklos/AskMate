@@ -9,6 +9,7 @@
     </form>
 <body>
 <h1>Display Question</h1>
+<<<<<<< HEAD
 <table>
     <tr>
         {% for line in header %}
@@ -25,6 +26,29 @@
         <td>{{ questionz['image'] }}</td>
     </tr>
     <br><br>
+=======
+<br>
+<table>
+    <form>
+        <tr>
+            {% for line in header %}
+                <th>{{ line }}</th>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>{{ questionz['id'] }}</td>
+            <td>{{ questionz['submission_time'] }}</td>
+            <td>{{ questionz['view_number'] }}</td>
+            <td>{{ questionz['vote_number'] }}
+                <a href="/question/{{ questionz['id'] }}/vote-up" class="button" style="text-decoration: none">Vote
+                    Up</a>
+                <a href="/vote-down/<id>" class="button" style="text-decoration: none">Vote Down</a></td>
+            <td>{{ questionz['title'] }}</td>
+            <td>{{ questionz['message'] }}</td>
+        </tr>
+    </form>
+        <br><br>
+>>>>>>> c923430fb5f5a3fb659804ec78ff66b5654ecbb6
 </table>
 <br><br>
 <div style="text-align:center;">
@@ -61,10 +85,5 @@
 <div style="text-align:center;">
     <a href="{{ url_for("list_") }}" class="button" style="text-decoration: none">Back to Question</a>
 </div>
-
-
-
-
-
 </body>
 </html>
