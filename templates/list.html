@@ -14,9 +14,12 @@
 <br><br>
 <table>
     <tr>
-        {% for line in header %}
-            <th>{{ line }}</th>
-        {% endfor %}
+            <th>{{ header['ID'] }}</th>
+            <th>{{ header['Submission Time'] }}</th>
+            <th>{{ header['View Number'] }}</th>
+            <th>{{ header['Vote Number'] }}</th>
+            <th>{{ header['Title'] }}</th>
+
     </tr>
     {% for line in questions %}
         <tr>
@@ -25,8 +28,7 @@
             <td>{{ line['view_number'] }}</td>
             <td>{{ line['vote_number'] }}</td>
             <td><a href="/question/{{ line["id"] }}" style="text-decoration: none">{{ line['title'] }}</a></td>
-            <td>{{ line['message'] }}</td>
-            <td>{{ line['image'] }}</td>
+
         </tr>
     {% endfor %}
 </table>

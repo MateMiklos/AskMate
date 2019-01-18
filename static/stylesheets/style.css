@@ -60,7 +60,7 @@ h1 {
 	-moz-border-radius:6px;
 	-webkit-border-radius:6px;
 	border-radius:6px;
-	border:1px solid #dcdcdc;
+	border: 3px solid #dcdcdc;
 	display:inline-block;
 	cursor:pointer;
 	color:#666666;

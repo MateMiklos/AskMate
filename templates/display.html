@@ -4,13 +4,11 @@
 <head>
     <meta charset="utf-8">
     <title>Display a Question</title>
-{#    <form action="/ask-question" method="POST">#}
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style.css') }}">
         </head>
     </form>
 <body>
 <h1>Display Question</h1>
-{#<form action="/question/<question_id>" method="GET">#}
 <table>
     <tr>
         {% for line in header %}
@@ -24,6 +22,7 @@
         <td>{{ questionz['vote_number'] }}</td>
         <td>{{ questionz['title'] }}</td>
         <td>{{ questionz['message'] }}</td>
+        <td>{{ questionz['image'] }}</td>
     </tr>
     <br><br>
 </table>
@@ -37,19 +36,26 @@
             <th>{{ line }}</th>
         {% endfor %}
     </tr>
+{#  {% for answer in answers %}#}
     <tr>
         <td>{{ answers["id"] }}</td>
         <td>{{ answers['submission_time'] }}</td>
         <td>{{ answers['question_id'] }}</td>
         <td>{{ answers['message'] }}</td>
+        <td>{{ answers['image'] }}</td>
     </tr>
+{#   {% endfor %}#}
 </table>
 <br><br>
 
 </div>
 <br>
 <div style="text-align:center;">
-    <a href='/question/{{ answers['question_id'] }}/new-answer' class="button" style="text-decoration: none">Add New Answer</a>
+{#    {% if answers['question_id'] is defined %}#}
+    <a href='/question/{{ questionz['id'] }}/new-answer' class="button" style="text-decoration: none">Add New Answer</a>
+{#    {% else%}#}
+{#    <a href='/question/{{0}}/new-answer' class="button" style="text-decoration: none">Add New Answer</a>#}
+{#    {% endif %}#}
 </div>
 <br><br>
 <div style="text-align:center;">

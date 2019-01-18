@@ -2,7 +2,7 @@ import csv, os, datetime
 
 DATA_FILE_PATH = os.getenv('DATA_FILE_PATH') if 'DATA_FILE_PATH' in os.environ else 'sample_data/question.csv'
 DATA_FILE_PATH_answer = os.getenv('DATA_FILE_PATH') if 'DATA_FILE_PATH' in os.environ else 'sample_data/answer.csv'
-header = ['ID', 'Submission Time', 'View Number', 'Vote Number', 'Title', 'Message', 'Image']
+header = {'ID':'ID', 'Submission Time':'Submission Time', 'View Number': 'View Number', 'Vote Number':'Vote Number', 'Title':'Title', 'Message':'Message', 'Image':'Image'}
 DATA_HEADER = ["id", "submission_time", "view_number", "vote_number", "title", "message","image"]
 answers_header = ["id","submission_time","vote_number","question_id","message","image"]
 DATA_HEADER_ANSWER = ['ID', 'Submission Time','Question ID', 'Message', 'Image']
