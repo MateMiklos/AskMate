@@ -18,7 +18,9 @@
             <th>{{ header['Submission Time'] }}</th>
             <th>{{ header['View Number'] }}</th>
             <th>{{ header['Vote Number'] }}</th>
+            <th>{{ header['message'] }}</th>
             <th>{{ header['Title'] }}</th>
+
 
     </tr>
     {% for line in questions %}
@@ -27,6 +29,7 @@
             <td>{{ line['submission_time'] }}</td>
             <td>{{ line['view_number'] }}</td>
             <td>{{ line['vote_number'] }}</td>
+            <td>{{ line['message'] }}</td>
             <td><a href="/question/{{ line["id"] }}" style="text-decoration: none">{{ line['title'] }}</a></td>
 
         </tr>

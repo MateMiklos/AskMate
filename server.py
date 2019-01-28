@@ -5,10 +5,25 @@ import data_handler
 
 app = Flask(__name__)
 
+
+
+
+
+
+
 @app.route('/')
 @app.route('/list')
+def index():
+    return render_template("index.html")
+
+
+
+@app.route("/search", methods=["POST"])
 def list_():
-    questions = data_handler.get_questions()
+    if request.method=="POST":
+        search= request.form['search']
+
+    questions = data_handler.get_result_by_search(search)
     header = data_handler.get_header()
     return render_template("list.html", questions=questions, header=header)
 

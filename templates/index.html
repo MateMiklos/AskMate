@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% extends "layout.html" %}
+    {% block head %}
+        <meta charset="UTF-8">
+        <title>Home Page</title>
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+    <div id="nav-bar">
+    <ul>
+{#        <li><a href="{{ url_for('mentors_default') }}">Mentor names</a></li>#}
+{#        <li><a href="{{ url_for('get_mentors_full_names') }}">Mentors Full names</a></li>#}
+        {#        <li><a href="{{ url_for('get_applicants_information') }}">Applicant Full Name And his/her Phone number</a></li>#}
+{#        <li><a href="{{ url_for('add_new_applicant') }}">New Applicant</a></li>#}
+{#        <li><a href="{{ url_for('update_applicant_informations') }}">Update informations</a></li>#}
+    </ul>
+    </div>
+    <form action="{{ url_for("list_") }}" method="POST">
+        <input type="text" name="search" placeholder="Search..">
+    </form>
+
+
+</body>
+<footer>
+    <div class="footer">
+
+        <p>Powered by Tejfi</p>
+    </div>
+</footer>
+{% endblock %}
+</html>

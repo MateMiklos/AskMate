@@ -44,6 +44,17 @@ def insert_answer_table(cursor,vote_number,question_id,message,image):
 
        """,
             {'submission_time': submission_time, 'vote_number': vote_number,'question_id':question_id,'message': message, 'image': image})
+@database_common.connection_handler
+def get_result_by_search(cursor,title):
+    cursor.execute("""
+                            SELECT id,submission_time, view_number, vote_number,title,message FROM question
+                            WHERE title= %(title)s
+                             OR message  = %(title)s ;
+                           """,
+                   {'title': title})
+    result = cursor.fetchall()
+    return result
+
 
 
 def get_next_id():
