@@ -64,13 +64,8 @@ def get_answer_header():
     return DATA_HEADER_ANSWER
 
 
-def id_generator():
-    pass
-
-
 def create_timestamp():
     return datetime.datetime.now().strftime('%H:%M:%S %d/%m/%Y')
-
 
 
 def upload_file():
