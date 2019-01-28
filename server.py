@@ -49,12 +49,9 @@ def add_answer(question_id):
         answer = dict(request.form)
         data_handler.append_answer_csv(answer)
         return redirect(url_for("display_question", id=question_id))
-<<<<<<< HEAD
 
     question_container = data_handler.get_questions()
-=======
     answers = data_handler.get_answers()
->>>>>>> c923430fb5f5a3fb659804ec78ff66b5654ecbb6
     answer_id = data_handler.get_next_answer_id()
     timestamp = data_handler.create_timestamp()
     for num in question_container:
