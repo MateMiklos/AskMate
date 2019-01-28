@@ -1,5 +1,6 @@
 import csv, os, datetime
-
+import database_common
+from datetime import datetime
 DATA_FILE_PATH = os.getenv('DATA_FILE_PATH') if 'DATA_FILE_PATH' in os.environ else 'sample_data/question.csv'
 DATA_FILE_PATH_answer = os.getenv('DATA_FILE_PATH') if 'DATA_FILE_PATH' in os.environ else 'sample_data/answer.csv'
 header = {'ID':'ID', 'Submission Time':'Submission Time', 'View Number': 'View Number', 'Vote Number':'Vote Number', 'Title':'Title', 'Message':'Message', 'Image':'Image'}
@@ -8,34 +9,42 @@ answers_header = ["id","submission_time","vote_number","question_id","message","
 DATA_HEADER_ANSWER = ['ID', 'Submission Time','Question ID', 'Message', 'Image']
 
 
-def get_questions():
-    with open(DATA_FILE_PATH) as csvfile:
-        reader = csv.DictReader(csvfile, delimiter=',')
-        questions = []
-        for row in reader:
-            questions.append(row)
+
+@database_common.connection_handler
+def get_questions(cursor):
+    cursor.execute("""
+                    SELECT * FROM question;
+                   """)
+    questions = cursor.fetchall()
     return questions
 
+@database_common.connection_handler
+def get_answers(cursor):
+    cursor.execute("""
+                    SELECT * FROM answer;
+    """)
+    answers = cursor.fetchall()
 
-def get_answers():
-    with open(DATA_FILE_PATH_answer) as csvfile:
-        reader = csv.DictReader(csvfile, delimiter=',')
-        answers = []
-        for row in reader:
-            answers.append(row)
     return answers
 
+@database_common.connection_handler
+def insert_question_table(cursor,view_number,vote_number, title,message,image):
+    submission_time=datetime.now()
+    cursor.execute("""INSERT INTO question(submission_time,view_number,vote_number, title,message,image)
+    VALUES(%(submission_time)s,%(view_number)s,%(vote_number)s,%(title)s,%(message)s,%(image)s);
+    
+    """,
+        {'submission_time':submission_time,'view_number':view_number,'vote_number':vote_number,'title':title,'message':message,'image':image})
 
-def append_csv(question):
-    with open(DATA_FILE_PATH, "a") as data_file:
-        writer = csv.DictWriter(data_file, fieldnames=DATA_HEADER, delimiter=',')
-        writer.writerow(question)
+@database_common.connection_handler
+def insert_answer_table(cursor,vote_number,question_id,message,image):
+    submission_time = datetime.now()
+    cursor.execute("""INSERT INTO answer(submission_time,vote_number, question_id,message,image)
+       VALUES(%(submission_time)s,%(vote_number)s,%(question_id)s, %(message)s,%(image)s);
 
+       """,
+            {'submission_time': submission_time, 'vote_number': vote_number,'question_id':question_id,'message': message, 'image': image})
 
-def append_answer_csv(answer):
-    with open(DATA_FILE_PATH_answer, "a") as data_file:
-        writer = csv.DictWriter(data_file, fieldnames=answers_header, delimiter=',')
-        writer.writerow(answer)
 
 def get_next_id():
     questions = get_questions()
@@ -62,10 +71,6 @@ def get_header():
 
 def get_answer_header():
     return DATA_HEADER_ANSWER
-
-
-def create_timestamp():
-    return datetime.datetime.now().strftime('%H:%M:%S %d/%m/%Y')
 
 
 def upload_file():

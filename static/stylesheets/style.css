@@ -1,9 +1,27 @@
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-  table-layout: fixed;
+body {
+    background-image: url(board.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+
 }
+
+.content-wrapper {
+    padding: 10%;
+}
+
+
+
+/*table {*/
+  /*font-family: arial, sans-serif;*/
+  /*border-collapse: collapse;*/
+  /*width: 100%;*/
+  /*table-layout: fixed;*/
+/*}*/
 
 td, th {
   border: 1px solid #dddddd;
@@ -73,14 +91,4 @@ h1 {
     margin: auto;
     text-align: center
 
-}
-
-
-body {
-    background-image: url(blank-memo-notebook-461435.jpg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    width: 100%;
-    height: 100%;
 }

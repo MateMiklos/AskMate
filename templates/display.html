@@ -9,27 +9,8 @@
     </form>
 <body>
 <h1>Display Question</h1>
-<<<<<<< HEAD
-<table>
-    <tr>
-        {% for line in header %}
-            <th>{{ line }}</th>
-        {% endfor %}
-    </tr>
-    <tr>
-        <td>{{ questionz['id'] }}</td>
-        <td>{{ questionz['submission_time'] }}</td>
-        <td>{{ questionz['view_number'] }}</td>
-        <td>{{ questionz['vote_number'] }}</td>
-        <td>{{ questionz['title'] }}</td>
-        <td>{{ questionz['message'] }}</td>
-        <td>{{ questionz['image'] }}</td>
-    </tr>
-    <br><br>
-=======
 <br>
 <table>
-    <form>
         <tr>
             {% for line in header %}
                 <th>{{ line }}</th>
@@ -46,9 +27,7 @@
             <td>{{ questionz['title'] }}</td>
             <td>{{ questionz['message'] }}</td>
         </tr>
-    </form>
         <br><br>
->>>>>>> c923430fb5f5a3fb659804ec78ff66b5654ecbb6
 </table>
 <br><br>
 <div style="text-align:center;">

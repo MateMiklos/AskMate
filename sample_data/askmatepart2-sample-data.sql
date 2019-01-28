@@ -1,6 +1,6 @@
 --
 -- PostgreSQL database dump
---
+--pg_read_all_stats
 
 -- Dumped from database version 9.5.6
 -- Dumped by pg_dump version 9.5.6

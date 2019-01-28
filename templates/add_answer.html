@@ -10,11 +10,9 @@
     <form action="/question/{{ question_id }}/new-answer" method="POST">
         <h1><label for="add_answer">Add answer to question:</label></h1>
         <br>
-        <input type="text" name="id" value="{{ answer_id }}" hidden>
-        <input type="text" name="submission_time" value="{{ timestamp }}" hidden>
-        <input type="text" name="vote_number" value="25" hidden>
+        <input type="text" name="vote_number" value="1" hidden>
         <input type="text" name="question_id" value="{{ question_number["id"] }}" hidden>
-        <textarea id="add_answer" name="message" rows="8" cols="80"></textarea>
+        <textarea id="message" name="message" rows="8" cols="80"></textarea>
         <input type="text" name="image" value="img/answer.jpg" hidden>
         <br><br>
         <br><br>
