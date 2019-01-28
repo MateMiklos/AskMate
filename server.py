@@ -21,7 +21,9 @@ def index():
 @app.route("/search", methods=["POST"])
 def list_():
     if request.method=="POST":
-        search= request.form['search']
+        post_request= request.form['search']
+        search =('%'+post_request+'%')
+        print(search)
 
     questions = data_handler.get_result_by_search(search)
     header = data_handler.get_header()

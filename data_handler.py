@@ -48,8 +48,8 @@ def insert_answer_table(cursor,vote_number,question_id,message,image):
 def get_result_by_search(cursor,title):
     cursor.execute("""
                             SELECT id,submission_time, view_number, vote_number,title,message FROM question
-                            WHERE title= %(title)s
-                             OR message  = %(title)s ;
+                            WHERE title LIKE  %(title)s
+                             OR message LIKE %(title)s ;
                            """,
                    {'title': title})
     result = cursor.fetchall()
