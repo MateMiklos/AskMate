@@ -28,7 +28,7 @@ def get_answers(cursor):
     return answers
 
 @database_common.connection_handler
-def insert_question_table(cursor,view_number,vote_number, title,message,image):
+def insert_question_table(cursor, view_number, vote_number, title, message, image):
     submission_time=datetime.now()
     cursor.execute("""INSERT INTO question(submission_time,view_number,vote_number, title,message,image)
     VALUES(%(submission_time)s,%(view_number)s,%(vote_number)s,%(title)s,%(message)s,%(image)s);
@@ -48,12 +48,24 @@ def insert_answer_table(cursor,vote_number,question_id,message,image):
 def get_result_by_search(cursor,title):
     cursor.execute("""
                             SELECT id,submission_time, view_number, vote_number,title,message FROM question
-                            WHERE title LIKE  %(title)s
+                            WHERE title LIKE %(title)s
                              OR message LIKE %(title)s ;
                            """,
                    {'title': title})
     result = cursor.fetchall()
     return result
+
+
+@database_common.connection_handler
+def add_comment_to_question(cursor, question_id, comment):
+    submission_time = datetime.now().isoformat(timespec='seconds')
+    edited_count = 0
+    cursor.execute("""
+                    INSERT INTO comment (question_id, comment, submission_time, edited_count
+                    VALUES (%(question_id)s, %(comment)s, %(submiossion_time)s, %(edited_count)s);""",
+                   {'question_id': question_id, 'comment': comment, 'submission_time': submission_time,
+                    'edited_count': edited_count})
+
 
 
 

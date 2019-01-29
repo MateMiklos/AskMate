@@ -38,7 +38,7 @@ def ask_question():
         vote_number=request.form.get("vote_number", type=int)
         message=request.form.get("message")
         image=request.form.get("image")
-        data_handler.insert_question_table(view_number,vote_number,title,message,image)
+        data_handler.insert_question_table(view_number, vote_number, title, message, image)
         return redirect('/')
 
     questions = data_handler.get_questions()
@@ -70,7 +70,7 @@ def add_answer(question_id):
         vote_number=request.form["vote_number"]
         message=request.form["message"]
         image=request.form["image"]
-        data_handler.insert_answer_table(vote_number,question_id,message,image)
+        data_handler.insert_answer_table(vote_number, question_id, message, image)
         return redirect(url_for("display_question", id=question_id))
 
 
@@ -86,13 +86,25 @@ def add_answer(question_id):
 def vote_up(id):
     question
     vote_counter += 1
-    return vote_counter, render_template('display.html',questions=questions, questionz=questionz, answers = answers,header=header, id=id)
+    return vote_counter, render_template('display.html', questions=questions, questionz=questionz, answers=answers, header=header, id=id)
 
 
 @app.route('/vote-down/<question_id>')
 def vote_down(question_id):
     vote_counter -= 1
     return vote_counter, redirect('question/id')
+
+
+@app.route('/question/<question_id>/new-comment', methods=['GET', 'POST'])
+def add_comment_to_question(question_id):
+    if request.method == 'POST':
+        comment_data = request.form.to_dict()
+        comment = comment_data['message']
+        data_handler.add_comment_to_question(question_id, comment)
+        return redirect(url_for('display_question', question_id=question_id))
+    return render_template('add_comment_to_quesiton', question_id=question_id)
+
+
 
 
 if __name__ == '__main__':
