@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
     <title>Display a Question</title>
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style.css') }}">
-        </head>
-    </form>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+</head>
+
 <body>
 <h1>Display Question</h1>
 <br>
@@ -31,6 +31,30 @@
 </table>
 <br><br>
 <div style="text-align:center;">
+
+    <p align="center"><a href="{{ url_for('comment_to_question', question_id=questionz.id) }}">
+    Comment here on a question</a></p>
+    {% for line in comment_to_question %}
+
+    <p class="comment"><em>{{ line.message }}</em></p>
+    <table align="center">
+
+        <tr>
+            <td>Submission time</td>
+            <td>Times edited</td>
+        </tr>
+        <tr>
+            <td width="150" align="center">{{ line.submission_time }}</td>
+            <td width="150" align="center">{{ line.edited_count }}</td>
+        </tr>
+        <td></td>
+        <td>
+            </form>
+        </td>
+
+    </table>
+
+{% endfor %}
     <h3>Answer</h3>
 </div>
 <table>

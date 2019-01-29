@@ -57,16 +57,26 @@ def get_result_by_search(cursor,title):
 
 
 @database_common.connection_handler
-def add_comment_to_question(cursor, question_id, comment):
+def add_comment_to_question(cursor, question_id, message):
     submission_time = datetime.now().isoformat(timespec='seconds')
     edited_count = 0
     cursor.execute("""
-                    INSERT INTO comment (question_id, comment, submission_time, edited_count
-                    VALUES (%(question_id)s, %(comment)s, %(submiossion_time)s, %(edited_count)s);""",
-                   {'question_id': question_id, 'comment': comment, 'submission_time': submission_time,
+                    INSERT INTO comment (question_id, message, submission_time, edited_count)
+                    VALUES (%(question_id)s, %(message)s, %(submission_time)s, %(edited_count)s);""",
+                   {'question_id': question_id, 'message': message, 'submission_time': submission_time,
                     'edited_count': edited_count})
 
 
+@database_common.connection_handler
+def find_comment_by_question_id(cursor, id):
+    cursor.execute("""
+                        SELECT * FROM comment
+                        WHERE question_id=%(question_id)s;
+                       """,
+                   {'question_id': id})
+    comments = cursor.fetchall()
+
+    return comments
 
 
 def get_header():

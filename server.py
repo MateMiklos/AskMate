@@ -11,9 +11,9 @@ def index():
 
 @app.route('/list')
 def list():
-    questions=data_handler.get_questions()
+    questions = data_handler.get_questions()
     header = data_handler.get_header()
-    return render_template("list.html",questions=questions,header=header)
+    return render_template("list.html", questions=questions, header=header)
 
 
 @app.route("/search", methods=["POST"])
@@ -50,6 +50,7 @@ def display_question(id):
     questions = data_handler.get_questions()
     header = data_handler.get_header()
     answers_header = data_handler.get_answer_header()
+    comment_to_question = data_handler.find_comment_by_question_id(id)
     for num in questions:
         if num["id"] == int(id):
             questionz = num
@@ -58,7 +59,8 @@ def display_question(id):
         if line["question_id"] == int(id):
             answers = line
     return render_template('display.html', questionz=questionz, answers=answers, header=header,
-                           answers_header=answers_header)
+                           answers_header=answers_header,
+                           comment_to_question=comment_to_question)
 
 
 @app.route('/question/<question_id>/new-answer', methods=['POST', 'GET'])
@@ -93,13 +95,13 @@ def vote_down(question_id):
 
 
 @app.route('/question/<question_id>/new-comment', methods=['GET', 'POST'])
-def add_comment_to_question(question_id):
+def comment_to_question(question_id):
     if request.method == 'POST':
         comment_data = request.form.to_dict()
-        comment = comment_data['message']
-        data_handler.add_comment_to_question(question_id, comment)
-        return redirect(url_for('display_question', question_id=question_id))
-    return render_template('add_comment_to_quesiton', question_id=question_id)
+        message = comment_data['message']
+        data_handler.add_comment_to_question(question_id, message)
+        return redirect(url_for('display_question', id=question_id))
+    return render_template('add_comment_to_question.html', question_id=question_id)
 
 
 
