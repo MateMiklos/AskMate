@@ -57,26 +57,6 @@ def get_result_by_search(cursor,title):
 
 
 
-def get_next_id():
-    questions = get_questions()
-    id = int(questions[-1]['id']) + 1
-    return id
-
-def get_next_question_id():
-    questions = get_answers()
-    question_id = int(questions[-1]['id']) + 20
-    return question_id
-
-
-
-def get_next_answer_id():
-    answers= get_answers()
-    answer_id = int(answers[-1]['id']) + 1
-    return answer_id
-
-
-
-
 def get_header():
     return header
 
