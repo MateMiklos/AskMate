@@ -66,8 +66,8 @@ def get_result_by_search(cursor, title):
 @database_common.connection_handler
 def get_answer_by_search(cursor,title):
     cursor.execute("""
-                                SELECT * FROM answer
-                                WHERE message LIKE  %(title)s;
+                            SELECT * FROM answer
+                            WHERE message LIKE  %(title)s;
                                """,
                    {'title': title})
     result = cursor.fetchall()
@@ -85,12 +85,35 @@ def get_answer_header():
 @database_common.connection_handler
 def get_latest_questions(cursor):
     cursor.execute("""
-                                SELECT * FROM question
-                                ORDER BY id DESC 
-                                LIMIT 5;
+                            SELECT * FROM question
+                            ORDER BY id DESC 
+                            LIMIT 5;
                                """)
     result = cursor.fetchall()
     return result
+
+
+@database_common.connection_handler
+def add_comment_to_question(cursor, question_id, message):
+    submission_time = datetime.now().isoformat(timespec='seconds')
+    edited_count = 0
+    cursor.execute("""
+                      INSERT INTO comment (question_id, message, submission_time, edited_count)
+                    VALUES (%(question_id)s, %(message)s, %(submission_time)s, %(edited_count)s); """,
+                   {'question_id': question_id, 'message': message, 'submission_time':submission_time,
+                    'edited_count': edited_count})
+
+
+@database_common.connection_handler
+def find_comment_by_question_id(cursor, question_id):
+    cursor.execute("""
+                        SELECT * FROM comment
+                        WHERE question_id=%(question_id)s;
+                       """,
+                   {'question_id': question_id})
+    comments = cursor.fetchall()
+
+    return comments
 
 
 @database_common.connection_handler

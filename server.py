@@ -24,18 +24,13 @@ def search():
     if request.method == "GET":
         post_request = request.args.get('search')
         search = ('%' + post_request + '%')
-@app.route("/search", methods=["POST"])
-def list_():
-    if request.method=="POST":
-        post_request= request.form['search']
-        search =('%'+post_request+'%')
         print(search)
 
     questions = data_handler.get_result_by_search(search)
     answer = data_handler.get_answer_by_search(search)
     header = data_handler.get_header()
     if answer == []:
-        return render_template("search.html", questions=questions,header=header)
+        return render_template("search.html", questions=questions, header=header)
     return render_template("search.html", questions=answer, header=header)
 
 
@@ -66,7 +61,6 @@ def display_question(id):
                            answers_header=answers_header)
 
 
-
 @app.route('/question/<question_id>/new-answer', methods=['POST', 'GET'])
 def add_answer(question_id):
     if request.method == 'POST':
@@ -83,10 +77,6 @@ def add_answer(question_id):
     return render_template('add_answer.html', question_number=question_number, question_id=question_id)
 
 
-@app.route('/answer/<id>/new-comment')
-def comment_on_answers(id):
-    answers = data_handler.get_answers()
-    return render_template('answer_comments.html', id=id, answers=answers)
 @app.route('/answer/<id>/new-comment', methods=['POST', 'GET'])
 def comments_on_answers(id):
     answer = data_handler.get_answer_by_id(id)
@@ -110,6 +100,16 @@ def vote_up(id):
                                          header=header, id=id)
 
 
+
+
+@app.route('/question/<question_id>/new-comment', methods=['GET', 'POST'])
+def add_comment_to_question(question_id):
+    if request.method == 'POST':
+        message_data = request.form.to_dict()
+        message = message_data['message']
+        data_handler.add_comment_to_question(question_id, message)
+        return redirect(url_for('display_question', id=question_id))
+    return render_template('add_comment_to_question.html', question_id=question_id)
 
 
 if __name__ == '__main__':
