@@ -28,32 +28,6 @@
         <br><br>
 </table>
     <br><br>
-    <h2>Comments:</h2>
-    <p align="center"><a class="button" href="{{ url_for('add_comment_to_question', question_id = questions[0]['id']) }}">
-    Comment here on a question</a></p>
-
-
-    {% for line in comment_to_question %}
-
-    <p class="comment" align="center" style="text-decoration: underline;"><em>{{ line.message }}</em></p>
-    <table align="center">
-
-        <tr>
-            <td width="150" align="center">Submission time</td>
-            <td width="150" align="center">Times edited</td>
-        </tr>
-        <tr>
-            <td width="150" align="center">{{ line.submission_time }}</td>
-            <td width="150" align="center">{{ line.edited_count }}</td>
-        </tr>
-        <td></td>
-
-
-    </table>
-
-
-    {% endfor %}
-
     <div style="text-align:center;">
         <h3>Answer</h3>
     </div>
@@ -78,13 +52,40 @@
     </div>
     <br>
     <div style="text-align:center;">
-        <a href='/question/{{ questions[0]['id'] }}/new-answer' class="button">Add New Answer</a>
+        <a href='/question/{{ questions[0]['id'] }}/new-answer' class="button" style="text-decoration: none">Add New Answer</a>
     </div>
     <br><br>
     <div style="text-align:center;">
-        <a href="{{ url_for("list") }}" class="button" style="text-decoration: none">Back to Question</a>
+        <a href="{{ url_for("list_") }}" class="button" style="text-decoration: none">Back to Question</a>
     </div>
+<br><br>
 
+<p align="center"><a class="button" href="{{ url_for('add_comment_to_question', question_id = questions[0]['id']) }}">
+    <h2>Comments:</h2>
+    <p align="center"><a class="button" href="{{ url_for('add_comment_to_question', question_id = questions[0]['id']) }}">
+    Comment here on a question</a></p>
+
+
+    {% for line in comment_to_question %}
+
+    <p class="comment" align="center" style="text-decoration: underline;"><em>{{ line.message }}</em></p>
+    <table align="center">
+
+        <tr>
+            <td width="150" align="center">Submission time</td>
+            <td width="150" align="center">Times edited</td>
+        </tr>
+        <tr>
+            <td width="150" align="center">{{ line.submission_time }}</td>
+            <td width="150" align="center">{{ line.edited_count }}</td>
+        </tr>
+        <td></td>
+
+
+    </table>
+
+
+{% endfor %}
 
 </body>
 </html>
