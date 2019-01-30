@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style.css') }}">
 <head>
      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style.css') }}">
     {% block head %}
@@ -19,8 +18,7 @@
             <input type="text" name="image" value="img/answer.jpg" hidden>
             <br><br>
             <br><br>
-    {#        <enctype = "multipart/form-data">#}
-    {#        <input type = "file" name = "file"  accept="image/*"/>#}
+
             <br><br>
             <br>
             <input class=" button " type=submit value="Submit">

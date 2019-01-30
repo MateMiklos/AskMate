@@ -2,12 +2,6 @@ import csv, os, datetime
 import database_common
 from datetime import datetime
 
-
-header = {'ID':'ID', 'Submission Time':'Submission Time', 'View Number': 'View Number', 'Vote Number':'Vote Number', 'Title':'Title', 'Message':'Message', 'Image':'Image'}
-DATA_HEADER = ["id", "submission_time", "view_number", "vote_number", "title", "message","image"]
-answers_header = ["id","submission_time","vote_number","question_id","message","image"]
-DATA_HEADER_ANSWER = ['ID', 'Submission Time','Question ID', 'Message', 'Image']
-
 DATA_FILE_PATH = os.getenv('DATA_FILE_PATH') if 'DATA_FILE_PATH' in os.environ else 'sample_data/question.csv'
 DATA_FILE_PATH_answer = os.getenv('DATA_FILE_PATH') if 'DATA_FILE_PATH' in os.environ else 'sample_data/answer.csv'
 header = {'ID': 'ID', 'Submission Time': 'Submission Time', 'View Number': 'View Number', 'Vote Number': 'Vote Number',
@@ -47,7 +41,6 @@ def insert_question_table(cursor, view_number, vote_number, title, message, imag
                     'title': title, 'message': message, 'image': image})
 
 
-
 @database_common.connection_handler
 def insert_answer_table(cursor, vote_number, question_id, message, image):
     submission_time = datetime.now()
@@ -55,7 +48,8 @@ def insert_answer_table(cursor, vote_number, question_id, message, image):
        VALUES(%(submission_time)s,%(vote_number)s,%(question_id)s, %(message)s,%(image)s);
 
        """,
-            {'submission_time': submission_time, 'vote_number': vote_number,'question_id':question_id,'message': message, 'image': image})
+                   {'submission_time': submission_time, 'vote_number': vote_number, 'question_id': question_id,
+                    'message': message, 'image': image})
 
 
 @database_common.connection_handler
@@ -68,25 +62,6 @@ def get_result_by_search(cursor, title):
                    {'title': title})
     result = cursor.fetchall()
     return result
-
-
-def get_next_id():
-    questions = get_questions()
-    id = int(questions[-1]['id']) + 1
-    return id
-
-
-def get_next_question_id():
-    questions = get_answers()
-    question_id = int(questions[-1]['id']) + 20
-    return question_id
-
-
-def get_next_answer_id():
-    answers= get_answers()
-    answer_id = int(answers[-1]['id']) + 1
-    return answer_id
-
 
 @database_common.connection_handler
 def get_answer_by_search(cursor,title):
