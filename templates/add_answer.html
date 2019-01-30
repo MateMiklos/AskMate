@@ -13,7 +13,7 @@
             <h1><label for="add_answer">Add answer to question:</label></h1>
             <br>
             <input type="text" name="vote_number" value="1" hidden>
-            <input type="text" name="question_id" value="{{ question["id"] }}" hidden>
+            <input type="text" name="question_id" value="{{ questions[0]["id"] }}" hidden>
             <textarea id="message" name="message" rows="8" cols="80"></textarea>
             <input type="text" name="image" value="img/answer.jpg" hidden>
             <br><br>

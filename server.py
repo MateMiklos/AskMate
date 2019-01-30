@@ -24,6 +24,8 @@ def search():
     if request.method == "GET":
         post_request = request.args.get('search')
         search = ('%' + post_request + '%')
+
+        
 @app.route("/search", methods=["POST"])
 def list_():
     if request.method=="POST":
