@@ -59,10 +59,12 @@ def ask_question():
 def display_question(id):
     answers = data_handler.get_answers()
     questions = data_handler.get_questions()
+    print(questions)
     header = data_handler.get_header()
     answers_header = data_handler.get_answer_header()
     for num in questions:
         if num["id"] == int(id):
+            print(num)
             questionz = num
     for line in answers:
         if line["question_id"] == int(id):
