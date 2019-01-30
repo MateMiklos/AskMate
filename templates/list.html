@@ -1,40 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>ÁSKMÉT</title>
+    <title>All of the questions</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style.css') }}">
 </head>
 <body>
-<h1>ÁSKMÉT</h1><br>
-<form>
-<div style="text-align:center;">
-<a href='/ask-question' class="button" style="text-decoration: none">Ask a question</a>
-</div>
-<br><br>
-<table>
-    <tr>
-            <th>{{ header['ID'] }}</th>
-            <th>{{ header['Submission Time'] }}</th>
-            <th>{{ header['View Number'] }}</th>
-            <th>{{ header['Vote Number'] }}</th>
-            <th>{{ header['message'] }}</th>
-            <th>{{ header['Title'] }}</th>
+{% block content %}
+    <h1>All of the questions</h1><br>
+    <div class="topnav">
+
+        <a href="{{ url_for('list') }}">List all of the questions</a>
+        <a href='/ask-question' style="text-decoration: none">Ask a question</a>
+        <a href="#contact">Contact</a>
+        <form action="{{ url_for("search") }}" method="POST">
+            <input type="text" name="search" placeholder="Search..">
+        </form>
+    </div>
+
+    <form>
+{#        <div style="text-align:center;">#}
+{#            <a href='/ask-question' class="button" style="text-decoration: none">Ask a question</a>#}
+{#        </div>#}
+        </div>
+        <br><br>
+        <table>
+            <tr>
+                <th>{{ header['ID'] }}</th>
+                <th>{{ header['Submission Time'] }}</th>
+                <th>{{ header['View Number'] }}</th>
+                <th>{{ header['Vote Number'] }}</th>
+                <th>{{ header['message'] }}</th>
+                <th>{{ header['Title'] }}</th>
 
 
-    </tr>
-    {% for line in questions %}
-        <tr>
-            <td>{{ line['id'] }}</td>
-            <td>{{ line['submission_time'] }}</td>
-            <td>{{ line['view_number'] }}</td>
-            <td>{{ line['vote_number'] }}</td>
-            <td>{{ line['message'] }}</td>
-            <td><a href="/question/{{ line["id"] }}" style="text-decoration: none">{{ line['title'] }}</a></td>
+            </tr>
+            {% for line in questions %}
+                <tr>
+                    <td>{{ line['id'] }}</td>
+                    <td>{{ line['submission_time'] }}</td>
+                    <td>{{ line['view_number'] }}</td>
+                    <td>{{ line['vote_number'] }}</td>
+                    <td>{{ line['message'] }}</td>
+                    <td><a href="/question/{{ line["id"] }}" style="text-decoration: none">{{ line['title'] }}</a></td>
 
-        </tr>
-    {% endfor %}
-</table>
-</form>
-</body>
+                </tr>
+            {% endfor %}
+        </table>
+    </form>
+
+    <div style="text-align:center;">
+        <a href="{{ url_for("index") }}" class="button" style="text-decoration: none">Back to Question</a>
+    </div>
+    {% endblock %}
+    </body>
+{% block footer %}
+{% include "footer.html" %}
+{% endblock %}
+</html>
 </html>
