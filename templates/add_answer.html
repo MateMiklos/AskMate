@@ -1,30 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-{% extends "layout.html" %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style.css') }}">
     {% block head %}
         <meta charset="UTF-8">
         <title>Add Answer</title>
     {% endblock %}
 <body>
-<div style="text-align:center;">
-    <form action="/question/{{ question_id }}/new-answer" method="POST">
-        <h1><label for="add_answer">Add answer to question:</label></h1>
-        <br>
-        <input type="text" name="vote_number" value="1" hidden>
-        <input type="text" name="question_id" value="{{ question_number["id"] }}" hidden>
-        <textarea id="message" name="message" rows="8" cols="80"></textarea>
-        <input type="text" name="image" value="img/answer.jpg" hidden>
-        <br><br>
-        <br><br>
-{#        <enctype = "multipart/form-data">#}
-{#        <input type = "file" name = "file"  accept="image/*"/>#}
-        <br><br>
-        <br>
-        <input class=" button " type=submit value="Submit">
-        <br><br>
-        <a href='/question/{{ question_id }}' class="button" style="text-decoration: none">Back to Questions</a>
-</div>
-</form>
-
+    <div style="text-align:center;">
+        <form action="/question/{{ question_id }}/new-answer" method="POST">
+            <h1><label for="add_answer">Add answer to question:</label></h1>
+            <br>
+            <input type="text" name="vote_number" value="1" hidden>
+            <input type="text" name="question_id" value="{{ question["id"] }}" hidden>
+            <textarea id="message" name="message" rows="8" cols="80"></textarea>
+            <input type="text" name="image" value="img/answer.jpg" hidden>
+            <br><br>
+            <br><br>
+    {#        <enctype = "multipart/form-data">#}
+    {#        <input type = "file" name = "file"  accept="image/*"/>#}
+            <br><br>
+            <br>
+            <input class=" button " type=submit value="Submit">
+            <br><br>
+            <a href='/question/{{ question_id }}' class="button" style="text-decoration: none">Back to Questions</a>
+        </form>
+    </div>
 </body>
 </html>

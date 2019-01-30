@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<h1>Comments</h1>
+<h3>{{ answer['message'] }}</h3>
+<div style="text-align:center;">
+    <form action="/answer/{{ id }}/new-comment" method="POST">
+        <h1><label for="answer_comments">Add comment to answer:</label></h1>
+        <br>
+        <input type="text" name="comment_id" value="{{ question["id"] }}" hidden>
+        <textarea id="message" name="message" rows="8" cols="80"></textarea>
+        <br><br>
+        <br><br>
+
+        <br><br>
+        <br>
+        <input class=" button " type=submit value="Submit">
+        <br><br>
+        <a href='/question/{{ question_id }}' class="button" style="text-decoration: none">Back to Questions</a>
+    </form>
+</div>
+<table>
+    <tr>
+        {% for elem in header %}
+            <th>{{ elem }}</th>
+        {% endfor %}
+    </tr>
+    {% for comment in comments %}
+        <tr>
+            <th>{{ comment['message'] }}</th>
+        </tr>
+    {% endfor %}
+</table>
+</body>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+<head>
+    <meta charset="UTF-8">
+    <title>Ask Mate | Answer Comments</title>
+</head>
+</html>
