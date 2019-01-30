@@ -2,20 +2,13 @@ from flask import Flask, render_template, request, redirect, url_for
 import data_handler
 
 
-
 app = Flask(__name__)
-
-
-
-
-
 
 
 @app.route('/')
 @app.route('/list')
 def index():
     return render_template("index.html")
-
 
 
 @app.route("/search", methods=["POST"])
@@ -40,7 +33,6 @@ def ask_question():
         image=request.form.get("image")
         data_handler.insert_question_table(view_number,vote_number,title,message,image)
         return redirect('/')
-
     questions = data_handler.get_questions()
     header = data_handler.get_header()
     id = data_handler.get_next_id()
@@ -56,12 +48,10 @@ def display_question(id):
     for num in questions:
         if num["id"] == int(id):
             questionz = num
-
     for line in answers:
         if line["question_id"] == int(id):
             answers = line
     return render_template('display.html', questionz=questionz, answers=answers,header=header, answers_header=answers_header)
-
 
 
 @app.route('/question/<question_id>/new-answer', methods=['POST', 'GET'])
@@ -72,27 +62,17 @@ def add_answer(question_id):
         image=request.form["image"]
         data_handler.insert_answer_table(vote_number,question_id,message,image)
         return redirect(url_for("display_question", id=question_id))
-
-
     question_container = data_handler.get_questions()
     for num in question_container:
         if num["id"] == int(question_id):
             question_number = num
-            print(num)
     return render_template('add_answer.html', question_number=question_number, question_id=question_id)
 
 
-@app.route('/question/<id>/vote-up')
-def vote_up(id):
-    question
-    vote_counter += 1
-    return vote_counter, render_template('display.html',questions=questions, questionz=questionz, answers = answers,header=header, id=id)
-
-
-@app.route('/vote-down/<question_id>')
-def vote_down(question_id):
-    vote_counter -= 1
-    return vote_counter, redirect('question/id')
+@app.route('/answer/<id>/new-comment')
+def comment_on_answers(id):
+    answers = data_handler.get_answers()
+    return render_template('answer_comments.html', id=id, answers=answers)
 
 
 if __name__ == '__main__':

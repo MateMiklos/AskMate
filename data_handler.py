@@ -56,17 +56,16 @@ def get_result_by_search(cursor,title):
     return result
 
 
-
 def get_next_id():
     questions = get_questions()
     id = int(questions[-1]['id']) + 1
     return id
 
+
 def get_next_question_id():
     questions = get_answers()
     question_id = int(questions[-1]['id']) + 20
     return question_id
-
 
 
 def get_next_answer_id():
@@ -75,10 +74,9 @@ def get_next_answer_id():
     return answer_id
 
 
-
-
 def get_header():
     return header
+
 
 def get_answer_header():
     return DATA_HEADER_ANSWER
@@ -89,3 +87,7 @@ def upload_file():
         f = request.files['file']
         f.save(secure_filename(f.filename))
         return 'file uploaded successfully'
+
+
+def add_comment_to_answer():
+    pass
