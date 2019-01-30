@@ -1,26 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style.css') }}">
-<script type="text/javascript" src="script.js"></script>
-    <meta charset="UTF-8">
-    <title>AskMate</title>
-
+    <meta charset="utf-8">
+    <title>ÁSKMÉT</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style.css') }}">
 </head>
 <body>
-{% block content %}
-
-<div class="topnav">
-  <a href="{{ url_for('list') }}">List all of the questions</a>
-  <a href='/ask-question' style="text-decoration: none">Ask a question</a>
-  <a href="#contact">Contact</a>
-<form action="{{ url_for("search") }}" method="GET">
-    <input type="text" name="search" placeholder="Search..">
-</form>
+<h1>ÁSKMÉT</h1><br>
+<div style="text-align:center;">
 </div>
+<br><br>
 <table>
     <tr>
-        <th>{{ header['ID'] }}</th>
+            <th>{{ header['ID'] }}</th>
             <th>{{ header['Submission Time'] }}</th>
             <th>{{ header['View Number'] }}</th>
             <th>{{ header['Vote Number'] }}</th>
@@ -41,11 +33,5 @@
         </tr>
     {% endfor %}
 </table>
-
-
-{% endblock %}
 </body>
-{% block footer %}
-{% include "footer.html" %}
-{% endblock %}
 </html>

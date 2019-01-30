@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+<head>
+     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style.css') }}">
     {% block head %}
         <meta charset="UTF-8">
         <title>Add Answer</title>
     {% endblock %}
+</head>
 <body>
     <div style="text-align:center;">
         <form action="/question/{{ question_id }}/new-answer" method="POST">
