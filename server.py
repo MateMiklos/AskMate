@@ -66,6 +66,7 @@ def display_question(id):
                            answers_header=answers_header)
 
 
+
 @app.route('/question/<question_id>/new-answer', methods=['POST', 'GET'])
 def add_answer(question_id):
     if request.method == 'POST':
@@ -95,6 +96,16 @@ def comments_on_answers(answer_id):
         return redirect(url_for("display_question", id=question_id))
 
     return render_template('answer_comments.html', id=answer_id, answer=answer, comments=comments, header=header)
+
+
+@app.route('/question/<question_id>/new-comment', methods=['GET', 'POST'])
+def add_comment_to_question(question_id):
+    if request.method == 'POST':
+        message_data = request.form.to_dict()
+        message = message_data['message']
+        data_handler.add_comment_to_question(question_id, message)
+        return redirect(url_for('display_question', id=question_id))
+    return render_template('add_comment_to_question.html', question_id=question_id)
 
 
 if __name__ == '__main__':
