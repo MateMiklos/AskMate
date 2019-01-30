@@ -66,7 +66,6 @@ def display_question(id):
                            answers_header=answers_header)
 
 
-
 @app.route('/question/<question_id>/new-answer', methods=['POST', 'GET'])
 def add_answer(question_id):
     if request.method == 'POST':
@@ -83,33 +82,19 @@ def add_answer(question_id):
     return render_template('add_answer.html', question_number=question_number, question_id=question_id)
 
 
-@app.route('/answer/<id>/new-comment')
-def comment_on_answers(id):
-    answers = data_handler.get_answers()
-    return render_template('answer_comments.html', id=id, answers=answers)
-@app.route('/answer/<id>/new-comment', methods=['POST', 'GET'])
-def comments_on_answers(id):
-    answer = data_handler.get_answer_by_id(id)
-    comments = data_handler.get_comments_by_answer_id(id)
-    question_id = data_handler.get_question_by_id(id)
-    question = data_handler.get_answers_by_question_id(id)
+@app.route('/answer/<answer_id>/new-comment', methods=['POST', 'GET'])
+def comments_on_answers(answer_id):
+    answer = data_handler.get_answer_by_id(answer_id)
+    comments = data_handler.get_comments_by_answer_id(answer_id)
     header = ['Comments:']
+
     if request.method == 'POST':
+        question_id = request.args.get('question_id')
         message = request.form["message"]
-        data_handler.insert_comment_table(id, message)
+        data_handler.insert_comment_table(answer_id, message)
         return redirect(url_for("display_question", id=question_id))
-    return render_template('answer_comments.html', id=id, answer=answer, comments=comments, header=header,
-                           question=question)
 
-
-@app.route('/question/<id>/vote-up')
-def vote_up(id):
-    question
-    vote_counter += 1
-    return vote_counter, render_template('display.html', questions=questions, questionz=questionz, answers=answers,
-                                         header=header, id=id)
-
-
+    return render_template('answer_comments.html', id=answer_id, answer=answer, comments=comments, header=header)
 
 
 if __name__ == '__main__':
