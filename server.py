@@ -14,7 +14,7 @@ def index():
 
 @app.route('/list')
 def list():
-    questions=data_handler.get_questions()
+    questions = data_handler.get_questions()
     header = data_handler.get_header()
     return render_template("list.html", questions=questions, header=header)
 
@@ -56,9 +56,11 @@ def display_question(id):
     questions = data_handler.get_question_by_id(id)
     header = data_handler.get_header()
     answers_header = data_handler.get_answer_header()
+    comment_to_question = data_handler.get_comment_by_question_id(id)
 
     return render_template('display.html', questions=questions, answers=answers, header=header,
-                           answers_header=answers_header)
+                           answers_header=answers_header,
+                           comment_to_question=comment_to_question)
 
 
 @app.route('/question/<question_id>/new-answer', methods=['POST', 'GET'])
@@ -98,8 +100,6 @@ def vote_up(id):
     vote_counter += 1
     return vote_counter, render_template('display.html', questions=questions, questionz=questionz, answers=answers,
                                          header=header, id=id)
-
-
 
 
 @app.route('/question/<question_id>/new-comment', methods=['GET', 'POST'])

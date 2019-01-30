@@ -166,3 +166,12 @@ def insert_comment_table(cursor, answer_id, message):
        VALUES (%(submission_time)s,%(answer_id)s, %(message)s);
        """, {'submission_time': submission_time, 'answer_id': answer_id, 'message': message})
 
+
+@database_common.connection_handler
+def get_comment_by_question_id(cursor, id):
+    cursor.execute("""
+                    SELECT * FROM comment
+                    WHERE question_id=%(question_id)s;
+                    """, {'question_id': id})
+    comment = cursor.fetchall()
+    return comment
