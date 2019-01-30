@@ -88,18 +88,6 @@ def add_answer(question_id):
     return render_template('add_answer.html', question_number=question_number, question_id=question_id)
 
 
-@app.route('/question/<id>/vote-up')
-def vote_up(id):
-    question
-    vote_counter += 1
-    return vote_counter, render_template('display.html', questions=questions, questionz=questionz, answers=answers,
-                                         header=header, id=id)
-
-
-@app.route('/vote-down/<question_id>')
-def vote_down(question_id):
-    vote_counter -= 1
-    return vote_counter, redirect('question/id')
 @app.route('/answer/<id>/new-comment')
 def comment_on_answers(id):
     answers = data_handler.get_answers()
