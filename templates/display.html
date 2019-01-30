@@ -28,42 +28,6 @@
         {% endfor %}
         <br><br>
 </table>
-<br><br>
-<div style="text-align:center;">
-    <h3>Answer</h3>
-</div>
-<table>
-    <tr>
-        {% for line in answers_header %}
-            <th>{{ line }}</th>
-        {% endfor %}
-    </tr>
-{#  {% for answer in answers %}#}
-    <tr>
-        <td>{{ answers["id"] }}</td>
-        <td>{{ answers['submission_time'] }}</td>
-        <td>{{ answers['question_id'] }}</td>
-        <td>{{ answers['message'] }}</td>
-        <td>{{ answers['image'] }}</td>
-    </tr>
-{#   {% endfor %}#}
-</table>
-<br><br>
-
-</div>
-<br>
-<div style="text-align:center;">
-{#    {% if answers['question_id'] is defined %}#}
-    <a href='/question/{{ questionz['id'] }}/new-answer' class="button" style="text-decoration: none">Add New Answer</a>
-{#    {% else%}#}
-{#    <a href='/question/{{0}}/new-answer' class="button" style="text-decoration: none">Add New Answer</a>#}
-{#    {% endif %}#}
-</div>
-<br><br>
-<div style="text-align:center;">
-    <a href="{{ url_for("index") }}" class="button" style="text-decoration: none">Back to Question</a>
-</div>
-    </table>
     <br><br>
     <div style="text-align:center;">
         <h3>Answer</h3>

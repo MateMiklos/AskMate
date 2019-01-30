@@ -9,14 +9,14 @@ app = Flask(__name__)
 def index():
     questions = data_handler.get_latest_questions()
     header = data_handler.get_header()
-    return render_template("index.html",questions=questions,header=header)
+    return render_template("index.html", questions=questions, header=header)
 
 
 @app.route('/list')
 def list():
     questions=data_handler.get_questions()
     header = data_handler.get_header()
-    return render_template("list.html",questions=questions,header=header)
+    return render_template("list.html", questions=questions, header=header)
 
 
 @app.route("/search", methods=["POST"])
@@ -24,6 +24,8 @@ def list_():
     if request.method=="POST":
         post_request= request.form['search']
         search =('%'+post_request+'%')
+
+
 @app.route("/search", methods=["GET"])
 def search():
     if request.method == "GET":
@@ -36,7 +38,7 @@ def search():
     header = data_handler.get_header()
     if answer == []:
         return render_template("search.html", questions=questions,header=header)
-    return render_template("search.html",questions=answer, header=header)
+    return render_template("search.html", questions=answer, header=header)
 
 
 
@@ -65,11 +67,7 @@ def display_question(id):
 
     return render_template('display.html', questions=questions, answers=answers, header=header,
                            answers_header=answers_header)
-    for line in answers:
-        if line["question_id"] == int(id):
-            answers = line
-    return render_template('display.html', questionz=questionz, answers=answers, header=header,
-                           answers_header=answers_header)
+
 
 
 @app.route('/question/<question_id>/new-answer', methods=['POST', 'GET'])
@@ -99,13 +97,17 @@ def add_answer(question_id):
 def comments_on_answers(id):
     answer = data_handler.get_answer_by_id(id)
     comments = data_handler.get_comments_by_answer_id(id)
+    question_id = data_handler.get_question_by_id(id)
     question = data_handler.get_answers_by_question_id(id)
-    print(question)
     header = ['Comments:']
     if request.method == 'POST':
         message = request.form["message"]
         data_handler.insert_comment_table(id, message)
-        return redirect(url_for("display_question", id=id))
+        return redirect(url_for("display_question", id=question_id))
+    return render_template('answer_comments.html', id=id, answer=answer, comments=comments, header=header,
+                           question=question)
+
+
 @app.route('/question/<id>/vote-up')
 def vote_up(id):
     question
@@ -113,7 +115,7 @@ def vote_up(id):
     return vote_counter, render_template('display.html', questions=questions, questionz=questionz, answers=answers,
                                          header=header, id=id)
 
-    return render_template('answer_comments.html', id=id, answer=answer, comments=comments, header=header, question=question)
+
 
 
 if __name__ == '__main__':
