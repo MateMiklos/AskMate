@@ -1,4 +1,4 @@
-import csv, os, datetime
+import os, datetime
 import database_common
 from datetime import datetime
 
@@ -63,11 +63,12 @@ def get_result_by_search(cursor, title):
     result = cursor.fetchall()
     return result
 
+
 @database_common.connection_handler
-def get_answer_by_search(cursor,title):
+def get_answer_by_search(cursor, title):
     cursor.execute("""
-                            SELECT * FROM answer
-                            WHERE message LIKE  %(title)s;
+                                SELECT * FROM answer
+                                WHERE message LIKE  %(title)s;
                                """,
                    {'title': title})
     result = cursor.fetchall()
@@ -85,12 +86,43 @@ def get_answer_header():
 @database_common.connection_handler
 def get_latest_questions(cursor):
     cursor.execute("""
-                            SELECT * FROM question
-                            ORDER BY id DESC 
-                            LIMIT 5;
+                                SELECT * FROM question
+                                ORDER BY id DESC 
+                                LIMIT 5;
                                """)
     result = cursor.fetchall()
     return result
+
+
+@database_common.connection_handler
+def update_answer(cursor, id, message, image):
+    submission_time = datetime.now()
+    cursor.execute("""
+    UPDATE answer set submission_time=%(submission_time)s, message=%(message)s,image=%(image)s
+    WHERE id = %(id)s;
+    """, {'id': id, 'submission_time': submission_time, 'message': message, 'image': image})
+
+
+@database_common.connection_handler
+def get_all_question(cursor, id):
+    cursor.execute("""
+        SELECT * FROM question
+        WHERE  id = %(id)s;
+        
+    """, {'id': id})
+    questions = cursor.fetchall()
+    return questions
+
+
+@database_common.connection_handler
+def get_all_answer(cursor, question_id):
+    cursor.execute("""
+    SELECT * FROM answer
+    WHERE question_id = %(question_id)s;
+    
+    """, {'question_id': question_id})
+    answers = cursor.fetchall()
+    return answers
 
 
 @database_common.connection_handler
@@ -100,71 +132,8 @@ def add_comment_to_question(cursor, question_id, message):
     cursor.execute("""
                       INSERT INTO comment (question_id, message, submission_time, edited_count)
                     VALUES (%(question_id)s, %(message)s, %(submission_time)s, %(edited_count)s); """,
-                   {'question_id': question_id, 'message': message, 'submission_time':submission_time,
+                   {'question_id': question_id, 'message': message, 'submission_time': submission_time,
                     'edited_count': edited_count})
-
-
-@database_common.connection_handler
-def find_comment_by_question_id(cursor, question_id):
-    cursor.execute("""
-                        SELECT * FROM comment
-                        WHERE question_id=%(question_id)s;
-                       """,
-                   {'question_id': question_id})
-    comments = cursor.fetchall()
-
-    return comments
-
-
-@database_common.connection_handler
-def get_comments_by_answer_id(cursor, answer_id):
-    cursor.execute("""
-    SELECT message FROM comment
-    WHERE answer_id=%(answer_id)s;
-    """, {'answer_id': answer_id})
-    comments = cursor.fetchall()
-    return comments
-
-
-@database_common.connection_handler
-def get_answers_by_question_id(cursor, question_id):
-    cursor.execute("""
-                    SELECT * FROM answer
-                    WHERE question_id=%(question_id)s;
-    """, {'question_id': question_id})
-
-    answers = cursor.fetchall()
-    return answers
-
-
-@database_common.connection_handler
-def get_answer_by_id(cursor, id):
-    cursor.execute("""
-                    SELECT * FROM answer
-                    WHERE id=%(id)s;
-    """, {'id': id})
-
-    answer = cursor.fetchall()
-    return answer
-
-
-@database_common.connection_handler
-def get_question_by_id(cursor, id):
-    cursor.execute("""
-                    SELECT * FROM question
-                    WHERE id=%(id)s;
-                   """, {'id': id})
-
-    question = cursor.fetchall()
-    return question
-
-
-@database_common.connection_handler
-def insert_comment_table(cursor, answer_id, message):
-    submission_time = datetime.now()
-    cursor.execute("""INSERT INTO comment(submission_time, answer_id, message)
-       VALUES (%(submission_time)s,%(answer_id)s, %(message)s);
-       """, {'submission_time': submission_time, 'answer_id': answer_id, 'message': message})
 
 
 @database_common.connection_handler
@@ -175,3 +144,41 @@ def get_comment_by_question_id(cursor, id):
                     """, {'question_id': id})
     comment = cursor.fetchall()
     return comment
+
+
+@database_common.connection_handler
+def delete_comment(cursor, question_id):
+    cursor.execute("""
+    DELETE FROM comment WHERE question_id=%(question_id)s;
+
+    """, {'question_id': question_id})
+
+
+@database_common.connection_handler
+def get_all_answer_by_id(cursor, id):
+    cursor.execute("""
+    SELECT * FROM answer
+    WHERE id = %(id)s;
+    """, {'id': id})
+    answers = cursor.fetchall()
+
+    return answers
+
+
+@database_common.connection_handler
+def get_comments_by_answer_id(cursor, answer_id):
+    cursor.execute("""
+    SELECT message FROM comment
+    WHERE answer_id=%(answer_id)s;
+    """, {'answer_id': answer_id})
+    comments = cursor.fetchall()
+
+    return comments
+
+
+@database_common.connection_handler
+def insert_comment_table(cursor, answer_id, message):
+    submission_time = datetime.now()
+    cursor.execute("""INSERT INTO comment(submission_time, answer_id, message)
+       VALUES (%(submission_time)s,%(answer_id)s, %(message)s);
+       """, {'submission_time': submission_time, 'answer_id': answer_id, 'message': message})
