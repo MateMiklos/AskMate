@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 import data_handler
 
 app = Flask(__name__)
+app.config['DEBUG'] = True
 
 
 @app.route('/')
@@ -23,7 +24,6 @@ def search():
     if request.method == "GET":
         post_request = request.args.get('search')
         search = ('%' + post_request + '%')
-        print(search)
 
     questions = data_handler.get_result_by_search(search)
     answer = data_handler.get_answer_by_search(search)
@@ -51,23 +51,16 @@ def ask_question():
 
 @app.route('/question/<id>', methods=['GET', 'POST'])
 def display_question(id):
-    # answers = []
+    comments = []
     answers = data_handler.get_all_answer(id)
     questions = data_handler.get_all_question(id)
-    print(questions)
     header = data_handler.get_header()
     answers_header = data_handler.get_answer_header()
     comment_to_question = data_handler.get_comment_by_question_id(id)
-    # for num in questions:
-    #     if num["id"] == int(id):
-    #         questionz = num
-
-    # for line in all_answers:
-    #     if line["question_id"] == int(id):
-    #         answers.append(line)
-    #         print(answers)
-    return render_template('display.html', questions=questions, answers=answers, header=header,
-                           answers_header=answers_header,comment_to_question=comment_to_question)
+    for answer in answers:
+        comments.append(data_handler.get_comments_by_answer_id(answer["id"]))
+        print(comments)
+    return render_template('display.html', questions=questions, answers=answers,comment_to_question=comment_to_question, comments=comments)
 
 
 @app.route('/question/<question_id>/new-answer', methods=['POST', 'GET'])
@@ -91,14 +84,12 @@ def add_answer(question_id):
 def update_answer(id):
     if request.method=="POST":
         message=request.form.get('message')
-        vote_number=request.form.get('vote_number')
         image=request.form.get('image')
         question_id = request.form.get('question_id')
         data_handler.update_answer(id,message,image)
         return redirect(url_for('display_question', id=question_id))
 
     answer = data_handler.get_all_answer_by_id(id)
-    print(id)
     # for line in answer_container:
     #     if line["id"]==int(id):
     #         answer=line
@@ -115,6 +106,7 @@ def add_comment_to_question(question_id):
         message = message_data['message']
         data_handler.add_comment_to_question(question_id, message)
         return redirect(url_for('display_question', id=question_id))
+
     return render_template('add_comment_to_question.html', question_id=question_id)
 
 @app.route('/comment/<question_id>/delete', methods=['POST'])
@@ -128,20 +120,31 @@ def delete_comment(question_id):
 def comments_on_answers(answer_id):
     answer = data_handler.get_all_answer_by_id(answer_id)
     comments = data_handler.get_comments_by_answer_id(answer_id)
-    header = ['Comments:']
+    comments_header = ['Comments:']
 
     if request.method == 'POST':
         question_id = request.form.get('question_id')
         message = request.form["message"]
-        data_handler.insert_comment_table(answer_id, message)
-        return redirect(url_for("display_question", id=question_id))
+        data_handler.insert_comment_table(question_id, answer_id, message)
+        return redirect(url_for("display_question", id=question_id, comments=comments))
 
-    return render_template('answer_comments.html', id=answer_id, answer=answer, comments=comments, header=header)
-
-
-
+    return render_template('answer_comments.html', id=answer_id, answer=answer, comments=comments,
+                           comments_header=comments_header)
 
 
+
+@app.route('/comments/<comment_id>/edit', methods=['GET', 'POST'])
+def edit_answer_comment(comment_id):
+    if request.method == 'POST':
+        question_id = request.form.get('question_id')
+        message = request.form.get('message')
+        data_handler.edit_answer_comment(message, comment_id)
+        return redirect(url_for('display_question', id=question_id))
+
+    question_id = request.form.get('question_id')
+    comment = data_handler.get_comment_by_id(comment_id)
+    print(comment)
+    return render_template('edit_answer_comments.html', id=question_id, comment=comment)
 
 
 
@@ -150,5 +153,5 @@ if __name__ == '__main__':
     app.run(
         host='0.0.0.0',
         port=5000,
-        debug=True,
+        debug=True
     )

@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style.css') }}">
     <script type="text/javascript" src="{{ url_for('static',filename='stylesheets/script.js') }}" defer></script>
     <meta charset="UTF-8">
+    <link  rel="icon" href="{{ url_for('static', filename='stylesheets/teamlogo.jpeg')}}" type="image/gif" sizes="16x16">
     <title>AskMate</title>
 
 </head>
@@ -15,21 +16,21 @@
 {% block content %}
 
     <div class="topnav">
+        <a href="{{ url_for("index") }}">Home Page</a>
         <a href="{{ url_for('list') }}">List all of the questions</a>
         <a href='/ask-question' style="text-decoration: none">Ask a question</a>
-        <a href="#contact">Contact</a>
         <form action="{{ url_for("search") }}" method="GET">
             <input type="text" name="search" placeholder="Search..">
         </form>
     </div>
     <table>
         <tr>
-            <th>{{ header['ID'] }}</th>
-            <th>{{ header['Submission Time'] }}</th>
-            <th>{{ header['View Number'] }}</th>
-            <th>{{ header['Vote Number'] }}</th>
+            <th>ID</th>
+            <th>Submission Time</th>
+            <th>'View Number</th>
+            <th>Vote Number</th>
             <th>Message</th>
-            <th>{{ header['Title'] }}</th>
+            <th>Title</th>
 
 
         </tr>

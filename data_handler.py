@@ -4,8 +4,8 @@ from datetime import datetime
 
 DATA_FILE_PATH = os.getenv('DATA_FILE_PATH') if 'DATA_FILE_PATH' in os.environ else 'sample_data/question.csv'
 DATA_FILE_PATH_answer = os.getenv('DATA_FILE_PATH') if 'DATA_FILE_PATH' in os.environ else 'sample_data/answer.csv'
-header = {'ID': 'ID', 'Submission Time': 'Submission Time', 'View Number': 'View Number', 'Vote Number': 'Vote Number',
-          'Title': 'Title', 'Message': 'Message', 'Image': 'Image'}
+header = {'Title': 'Title', 'Message': 'Message', 'Image': 'Image'}
+# 'ID': 'ID', 'Submission Time': 'Submission Time', 'View Number': 'View Number', 'Vote Number': 'Vote Number',
 DATA_HEADER = ["id", "submission_time", "view_number", "vote_number", "title", "message", "image"]
 answers_header = ["id", "submission_time", "vote_number", "question_id", "message", "image"]
 DATA_HEADER_ANSWER = ['ID', 'Submission Time', 'Question ID', 'Message', 'Image']
@@ -168,7 +168,7 @@ def get_all_answer_by_id(cursor, id):
 @database_common.connection_handler
 def get_comments_by_answer_id(cursor, answer_id):
     cursor.execute("""
-    SELECT message FROM comment
+    SELECT message, answer_id, id,question_id FROM comment
     WHERE answer_id=%(answer_id)s;
     """, {'answer_id': answer_id})
     comments = cursor.fetchall()
@@ -177,8 +177,28 @@ def get_comments_by_answer_id(cursor, answer_id):
 
 
 @database_common.connection_handler
-def insert_comment_table(cursor, answer_id, message):
+def insert_comment_table(cursor, question_id, answer_id, message):
     submission_time = datetime.now()
-    cursor.execute("""INSERT INTO comment(submission_time, answer_id, message)
-       VALUES (%(submission_time)s,%(answer_id)s, %(message)s);
-       """, {'submission_time': submission_time, 'answer_id': answer_id, 'message': message})
+    cursor.execute("""INSERT INTO comment(submission_time, question_id, answer_id, message)
+       VALUES (%(submission_time)s, %(question_id)s, %(answer_id)s, %(message)s);
+       """, {'submission_time': submission_time, 'question_id': question_id, 'answer_id': answer_id,
+             'message': message})
+
+
+@database_common.connection_handler
+def edit_answer_comment(cursor, message, id):
+    submission_time = datetime.now()
+    cursor.execute("""
+            UPDATE comment SET message=%(message)s, submission_time=%(submission_time)s
+            WHERE id=%(id)s;
+        """, {'message': message, 'submission_time': submission_time, 'id': id})
+
+
+@database_common.connection_handler
+def get_comment_by_id(cursor, id):
+    cursor.execute("""
+                    SELECT * FROM comment
+                    WHERE id=%(id)s;
+    """, {'id': id})
+    comment = cursor.fetchone()
+    return comment

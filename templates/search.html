@@ -3,7 +3,22 @@
 <head>
     <meta charset="utf-8">
     <title>ÁSKMÉT</title>
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static',filename='stylesheets/script.js') }}" defer></script>
+    <div class="topnav">
+        <a href="{{ url_for("index") }}">Home Page</a>
+        <a href="{{ url_for('list') }}">List all of the questions</a>
+        <a href='/ask-question' style="text-decoration: none">Ask a question</a>
+        <form action="{{ url_for("search") }}" method="GET">
+            <input type="text" name="search" placeholder="Search..">
+        </form>
+    </div>
+
+
 </head>
 <body>
 <h1>ÁSKMÉT</h1><br>
@@ -12,12 +27,12 @@
 <br><br>
 <table>
     <tr>
-            <th>{{ header['ID'] }}</th>
-            <th>{{ header['Submission Time'] }}</th>
-            <th>{{ header['View Number'] }}</th>
-            <th>{{ header['Vote Number'] }}</th>
-            <th>{{ header['message'] }}</th>
-            <th>{{ header['Title'] }}</th>
+        <th>{{ header['ID'] }}</th>
+        <th>{{ header['Submission Time'] }}</th>
+        <th>{{ header['View Number'] }}</th>
+        <th>{{ header['Vote Number'] }}</th>
+        <th>{{ header['message'] }}</th>
+        <th>{{ header['Title'] }}</th>
 
 
     </tr>
@@ -34,4 +49,7 @@
     {% endfor %}
 </table>
 </body>
+{% block footer %}
+    {% include "footer.html" %}
+{% endblock %}
 </html>
